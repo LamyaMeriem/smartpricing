@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smartpricing"
+version = "0.1.0"
+description = "SaaS for e-commerce pricing and inventory automation"
+requires-python = ">=3.11"
+
+[tool.black]
+line-length = 127
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+line_length = 127
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = "C0111,C0114,C0115"
