@@ -1,4 +1,4 @@
-"""Unit tests for API endpoints"""
+"""Unit tests for public and placeholder API endpoints."""
 import pytest
 
 

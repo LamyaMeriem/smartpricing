@@ -1,4 +1,4 @@
-"""Configuration for SmartPricing Engine"""
+"""Environment-based configuration using Pydantic Settings."""
 from pydantic import ConfigDict
 from pydantic_settings import BaseSettings
 
@@ -20,8 +20,13 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
 
     model_config = ConfigDict(
-        env_file=".env.local", case_sensitive=False, extra="ignore"  # 👈 Important! Ignore les extra fields du .env
+        # Tells Pydantic to look for variables in a .env.local file.
+        # 'extra="ignore"' prevents errors if the .env file has variables not defined in this class.
+        env_file=".env.local",
+        case_sensitive=False,
+        extra="ignore"
     )
 
 
+# Singleton instance to be imported across the app
 settings = Settings()

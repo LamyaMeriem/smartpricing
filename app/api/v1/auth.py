@@ -1,4 +1,4 @@
-"""Authentication endpoints"""
+"""Authentication endpoints for user registration and login."""
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.schemas.user import UserCreate, UserLogin, UserResponse, TokenResponse
@@ -11,7 +11,11 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 async def register(user_data: UserCreate, db: Session = Depends(get_db)):
-    """Register a new user"""
+    """
+    Creates a new user record in the database.
+    1. Checks for duplicate email/username.
+    2. Hashes the password before storing.
+    """
     # Check if user already exists
     existing_user = db.query(User).filter(
         (User.email == user_data.email) | (User.username == user_data.username)
@@ -40,7 +44,11 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login", response_model=TokenResponse)
 async def login(user_data: UserLogin, db: Session = Depends(get_db)):
-    """Login and get access token"""
+    """
+    Authenticates a user and returns a JWT access token.
+    1. Verifies user existence.
+    2. Verifies hashed password matches.
+    """
     # Find user by email
     user = db.query(User).filter(User.email == user_data.email).first()
 
