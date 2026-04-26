@@ -35,10 +35,12 @@ app.include_router(auth.router)
 # Health Check Endpoints
 # ============================================================================
 
+
 @app.get("/health", tags=["Health"])
 async def health():
     """Health check endpoint - used by Docker"""
     return {"status": "ok"}
+
 
 @app.get("/readiness", tags=["Health"])
 async def readiness():
@@ -48,6 +50,7 @@ async def readiness():
 # ============================================================================
 # Root Endpoint
 # ============================================================================
+
 
 @app.get("/", tags=["Root"])
 async def root():
@@ -62,6 +65,7 @@ async def root():
 # ============================================================================
 # API v1 - Products (placeholder)
 # ============================================================================
+
 
 @app.get("/api/v1/products", tags=["Products"])
 async def list_products():
@@ -102,6 +106,7 @@ async def list_products():
         ]
     }
 
+
 @app.get("/api/v1/products/{product_id}", tags=["Products"])
 async def get_product(product_id: str):
     """Get a specific product"""
@@ -111,10 +116,12 @@ async def get_product(product_id: str):
 # Startup / Shutdown Events
 # ============================================================================
 
+
 @app.on_event("startup")
 async def startup_event():
     """Run on application startup"""
     logger.info(f"🚀 SmartPricing Engine starting in {settings.environment} mode")
+
 
 @app.on_event("shutdown")
 async def shutdown_event():
