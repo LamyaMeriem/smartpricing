@@ -49,4 +49,3 @@ def client():
 def auth_headers():
     """Mock auth headers."""
     return {"Authorization": "Bearer fake-token"}
-
